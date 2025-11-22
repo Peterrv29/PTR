@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProtegeTuRed - Seguridad Digital</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header y Navegación */
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.1);
+            color: #3498db;
+        }
+
+        /* Secciones */
+        section {
+            min-height: 100vh;
+            padding: 100px 0 60px;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 150px 0 100px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 span {
+            color: #3498db;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: #7f8c8d;
+        }
+
+        .section-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .simulation-card {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #e74c3c;
+            backdrop-filter: blur(10px);
+        }
+
+        .simulation-card.legitimate {
+            border-left-color: #27ae60;
+        }
+
+        .simulation-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .simulation-header .status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .scam .status {
+            background: #e74c3c;
+        }
+
+        .legitimate .status {
+            background: #27ae60;
+        }
+
+        .simulation-content {
+            background: rgba(0,0,0,0.03);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .red-flags {
+            margin: 1rem 0;
+        }
+
+        .red-flags h4 {
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .red-flags ul {
+            list-style: none;
+        }
+
+        .red-flags li {
+            color: #c0392b;
+            margin-bottom: 0.3rem;
+        }
+
+        .red-flags li i {
+            margin-right: 0.5rem;
+        }
+
+        .game-progress {
+            background: rgba(255,255,255,0.95);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db 0%, #2ecc71 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .game-container {
+            background: rgba(255,255,255,0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .option {
+            background: rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-align: left;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .option.correct {
+            background: rgba(39, 174, 96, 0.2);
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .option.incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .option.selected {
+            background: rgba(52, 152, 219, 0.2);
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .option i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .feedback-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.05);
+            display: none;
+        }
+
+        .feedback-container.correct {
+            background: rgba(39, 174, 96, 0.2);
+            border: 2px solid #27ae60;
+        }
+
+        .feedback-container.incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
+        }
+
+        .feedback-text {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feedback-details {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 2rem auto 0;
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #2570a5 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .success-message {
+            text-align: center;
+            background: rgba(255,255,255,0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message.correct i {
+            color: #27ae60;
+        }
+
+        .success-message.incorrect i {
+            color: #e74c3c;
+        }
+
+        .success-message h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background: rgba(255,255,255,0.95);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .tip-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .security-advice {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            margin: 3rem 0;
+        }
+
+        .security-advice h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .security-advice p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .stats-section {
+            background: rgba(255,255,255,0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .social-media-section {
+            background: rgba(255,255,255,0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-media-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .social-media-content h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon.facebook {
+            background: #3b5998;
+        }
+
+        .social-icon.instagram {
+            background: linear-gradient(45deg, #f094fb, #e6683c);
+        }
+
+        .social-icon.tiktok {
+            background: #000000;
+        }
+
+        .social-icon.youtube {
+            background: #ff0000;
+        }
+
+        .social-icon.twitter {
+            background: #1da1f2;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .social-tips {
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-tip {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .social-tip h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-tip h4 i {
+            margin-right: 0.5rem;
+            color: #3498db;
+        }
+
+        .social-tip p {
+            color: #7f8c8d;
+        }
+
+        .resources-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .resources-section h3 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .resource-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .resource-card h4 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .resource-card p {
+            opacity: 0.9;
+        }
+
+        .final-score {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 2rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .final-message {
+            font-size: 1.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.05);
+        }
+
+        .footer {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .team-info {
+            text-align: right;
+        }
+
+        .team-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .team-members {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .team-member {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+            margin: 0.2rem 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: #bdc3c7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .team-info {
+                text-align: center;
+                margin-top: 1rem;
+            }
+            
+            .social-icons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .social-icon {
+                margin: 0.5rem;
+            }
+            
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-text {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header y Navegación -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>ProtegeTuRed</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active" data-section="home">Inicio</a></li>
+                    <li><a href="#simulations" class="nav-link" data-section="simulations">Simulaciones</a></li>
+                    <li><a href="#tips" class="nav-link" data-section="tips">Tips</a></li>
+                    <li><a href="#game" class="nav-link" data-section="game">Juego</a></li>
+                    <li><a href="#social-media" class="nav-link" data-section="social-media">Redes Sociales</a></li>
+                    <li><a href="#resources" class="nav-link" data-section="resources">Recursos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección Principal -->
+    <section id="home" class="active">
+        <div class="hero">
+            <h1>Protege<span>TuRed</span></h1>
+            <p>Educa, protege y previene en el mundo digital</p>
+            <div class="cta-buttons">
+                <a href="#simulations" class="btn btn-primary" onclick="navigateToSection('simulations')">Simulaciones de Estafas</a>
+                <a href="#game" class="btn btn-secondary" onclick="navigateToSection('game')">Detecta la Trampa</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>Ciberacoso</h3>
+                    <p>Aprende a identificar y responder a situaciones de acoso en redes sociales y plataformas digitales. El ciberacoso puede afectar tu salud mental, autoestima y bienestar emocional.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Hackeos</h3>
+                    <p>Descubre cómo los hackers acceden a tus cuentas y cómo protegerte con medidas efectivas. Tus datos personales son valiosos y deben estar protegidos constantemente.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h3>Phishing</h3>
+                    <p>Identifica correos, mensajes y sitios web falsos diseñados para robar tus datos personales. Cada año, millones de personas caen en estas trampas digitales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Simulaciones -->
+    <section id="simulations">
+        <div class="section-title">
+            <h2>Simulaciones de Mensajes Falsos</h2>
+            <p>Analiza estos mensajes y aprende a identificar las señales de alerta</p>
+        </div>
+
+        <div class="container">
+            <div class="simulation-card scam">
+                <div class="simulation-header">
+                    <div class="status"></div>
+                    <span>Correo de Phishing</span>
+                </div>
+                <div class="simulation-content">
+                    "¡Urgente! Tu cuenta de Netflix ha sido comprometida. Haz clic aquí para verificar tu información antes de que se cierre tu cuenta."
+                </div>
+                <div class="red-flags">
+                    <h4><i class="fas fa-exclamation-circle"></i> Señales de Alerta:</h4>
+                    <ul>
+                        <li><i class="fas fa-exclamation-triangle"></i> Urgencia excesiva</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Enlace sospechoso</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Solicita información personal</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Dominio no oficial (no es netflix.com)</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Falta de personalización (no menciona tu nombre)</li>
+                    </ul>
+                </div>
+                <div style="background: #e74c3c; color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block;">
+                    ESTAFA
+                </div>
+            </div>
+
+            <div class="simulation-card scam">
+                <div class="simulation-header">
+                    <div class="status"></div>
+                    <span>Mensaje de Soporte Falso</span>
+                </div>
+                <div class="simulation-content">
+                    "Hola, soy soporte técnico de Google. Tu cuenta tiene un problema de seguridad. Por favor, ingresa tu contraseña aquí para solucionarlo."
+                </div>
+                <div class="red-flags">
+                    <h4><i class="fas fa-exclamation-circle"></i> Señales de Alerta:</h4>
+                    <ul>
+                        <li><i class="fas fa-exclamation-triangle"></i> Soporte no solicitado</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Solicita contraseña (nunca lo hará una empresa legítima)</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Dominio no oficial</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Presión para actuar inmediatamente</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Mensaje genérico sin detalles específicos</li>
+                    </ul>
+                </div>
+                <div style="background: #e74c3c; color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block;">
+                    ESTAFA
+                </div>
+            </div>
+
+            <div class="simulation-card legitimate">
+                <div class="simulation-header">
+                    <div class="status"></div>
+                    <span>Notificación Legítima</span>
+                </div>
+                <div class="simulation-content">
+                    "Tu sesión de Instagram ha iniciado desde un nuevo dispositivo. Si no fuiste tú, haz clic en 'No fui yo' para bloquear el acceso."
+                </div>
+                <div class="red-flags">
+                    <h4><i class="fas fa-check-circle"></i> Características Legítimas:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Verificación de actividad</li>
+                        <li><i class="fas fa-check"></i> Enlace oficial</li>
+                        <li><i class="fas fa-check"></i> Opción para reportar sin compartir contraseñas</li>
+                        <li><i class="fas fa-check"></i> No solicita información confidencial</li>
+                        <li><i class="fas fa-check"></i> Proviene de una fuente verificada</li>
+                    </ul>
+                </div>
+                <div style="background: #27ae60; color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block;">
+                    LEGÍTIMO
+                </div>
+            </div>
+
+            <div class="simulation-card scam">
+                <div class="simulation-header">
+                    <div class="status"></div>
+                    <span>Oferta de Dinero Falsa</span>
+                </div>
+                <div class="simulation-content">
+                    "¡GANASTE $5000 EN EFECTIVO! Solo debes pagar $50 en tarifas de procesamiento para reclamar tu premio. ¡Clic aquí ahora!"
+                </div>
+                <div class="red-flags">
+                    <h4><i class="fas fa-exclamation-circle"></i> Señales de Alerta:</h4>
+                    <ul>
+                        <li><i class="fas fa-exclamation-triangle"></i> Ganar dinero sin participar en nada</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Pedir dinero para recibir premio</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Oferta demasiado buena para ser cierta</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> No hay información sobre la empresa organizadora</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Urgencia para actuar inmediatamente</li>
+                    </ul>
+                </div>
+                <div style="background: #e74c3c; color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block;">
+                    ESTAFA
+                </div>
+            </div>
+
+            <div class="simulation-card scam">
+                <div class="simulation-header">
+                    <div class="status"></div>
+                    <span>Mensaje de Amigo Falso</span>
+                </div>
+                <div class="simulation-content">
+                    "Hola, soy tu amigo Pedro. Me robaron el celular y necesito dinero urgente para comprar uno nuevo. Por favor, envíame $100 por transferencia. Te lo agradezco mucho."
+                </div>
+                <div class="red-flags">
+                    <h4><i class="fas fa-exclamation-circle"></i> Señales de Alerta:</h4>
+                    <ul>
+                        <li><i class="fas fa-exclamation-triangle"></i> Mensaje inesperado de alguien conocido</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Solicita dinero por transferencia</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> No hay forma de verificar la identidad</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Usa emociones para manipularte</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Pide acción inmediata sin tiempo para pensar</li>
+                    </ul>
+                </div>
+                <div style="background: #e74c3c; color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block;">
+                    ESTAFA
+                </div>
+            </div>
+
+            <div class="simulation-card legitimate">
+                <div class="simulation-header">
+                    <div class="status"></div>
+                    <span>Alerta de Seguridad Legítima</span>
+                </div>
+                <div class="simulation-content">
+                    "Hemos detectado intentos de acceso no autorizados a tu cuenta. Para proteger tu cuenta, te recomendamos cambiar tu contraseña y activar la autenticación de dos factores."
+                </div>
+                <div class="red-flags">
+                    <h4><i class="fas fa-check-circle"></i> Características Legítimas:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Recomendación de acción de seguridad</li>
+                        <li><i class="fas fa-check"></i> No solicita contraseña ni datos personales</li>
+                        <li><i class="fas fa-check"></i> Proporciona pasos claros para proteger tu cuenta</li>
+                        <li><i class="fas fa-check"></i> Proviene de la plataforma oficial</li>
+                        <li><i class="fas fa-check"></i> No crea urgencia irracional</li>
+                    </ul>
+                </div>
+                <div style="background: #27ae60; color: white; padding: 0.5rem 1rem; border-radius: 20px; display: inline-block;">
+                    LEGÍTIMO
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Tips -->
+    <section id="tips">
+        <div class="section-title">
+            <h2>Tips para Proteger Tus Cuentas</h2>
+            <p>Implementa estas prácticas de seguridad para mantener tus datos protegidos</p>
+        </div>
+
+        <div class="container">
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-number">1</div>
+                    <p>Usa contraseñas únicas y complejas para cada cuenta (mínimo 12 caracteres con mayúsculas, minúsculas, números y símbolos)</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">2</div>
+                    <p>Activa la autenticación de dos factores (2FA) en todas las cuentas que lo permitan</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">3</div>
+                    <p>No hagas clic en enlaces sospechosos, incluso si parecen venir de amigos o contactos conocidos</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">4</div>
+                    <p>Actualiza regularmente tus aplicaciones y sistema operativo para cerrar vulnerabilidades de seguridad</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">5</div>
+                    <p>Verifica siempre la URL antes de ingresar datos sensibles (busca el candado y el dominio correcto)</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">6</div>
+                    <p>No compartas información personal en redes sociales como tu dirección, número de teléfono, fechas de cumpleaños, etc.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">7</div>
+                    <p>Usa un gestor de contraseñas para mantener tus credenciales seguras y organizadas</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">8</div>
+                    <p>Revisa periódicamente los permisos de aplicaciones conectadas a tus cuentas y elimina las que ya no usas</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">9</div>
+                    <p>Configura la privacidad de tus redes sociales para que solo tus contactos puedan ver tu información</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">10</div>
+                    <p>Si recibes un mensaje sospechoso, verifica con la persona por otro medio antes de responder</p>
+                </div>
+            </div>
+
+            <div class="security-advice">
+                <h3>¡Recuerda!</h3>
+                <p>La mejor defensa contra el ciberacoso, hackeos y phishing es la educación. Si algo te parece sospechoso, ¡no lo abras! Verifica siempre la fuente y cuando estés en duda, consulta con un adulto de confianza. Tu información personal es valiosa y debe protegerse como un tesoro.</p>
+            </div>
+
+            <div class="stats-section">
+                <h2>Estadísticas Alarmantes</h2>
+                <p>Conoce la realidad de la seguridad digital hoy en día</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">de los ataques de phishing se dirigen a usuarios jóvenes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">43%</div>
+                        <div class="stat-label">de los ciberataques son dirigidos a pequeñas empresas y estudiantes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1.5M</div>
+                        <div class="stat-label">de intentos de phishing se detectan cada día</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">78%</div>
+                        <div class="stat-label">de los adolescentes han recibido mensajes de ciberacoso</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-label">de las personas no utilizan autenticación de dos factores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">de los usuarios reutilizan la misma contraseña en múltiples cuentas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección del Juego -->
+    <section id="game">
+        <div class="section-title">
+            <h2>🎮 Juego: Detecta la Trampa</h2>
+            <p>¿Eres un experto en identificar estafas? Elige la opción correcta. ¡Demuestra tu conocimiento!</p>
+        </div>
+
+        <div class="container">
+            <div class="game-progress">
+                <h3>Pregunta <span id="currentQuestion">1</span> de 20</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
+                </div>
+                <p>Puntuación actual: <span id="currentScore">0</span>/20</p>
+            </div>
+
+            <div class="game-container">
+                <div class="question-container">
+                    <h2 class="question-text" id="questionText">Cargando pregunta...</h2>
+                    
+                    <div class="options-container" id="optionsContainer">
+                        <!-- Las opciones se cargarán dinámicamente -->
+                    </div>
+                    
+                    <div class="feedback-container" id="feedbackContainer">
+                        <h3 class="feedback-text" id="feedbackText">¡Correcto!</h3>
+                        <p class="feedback-details" id="feedbackDetails">Explicación de la respuesta.</p>
+                    </div>
+                    
+                    <button class="next-btn" id="nextButton" style="display: none;">Siguiente Pregunta</button>
+                </div>
+                
+                <div class="success-message" id="finalScore" style="display: none;">
+                    <i class="fas fa-trophy" id="finalIcon"></i>
+                    <h3>¡Juego Completado!</h3>
+                    <div class="final-score" id="finalScoreNumber">0/20</div>
+                    <div class="final-message" id="finalMessage">debes ponerte a investigar más</div>
+                    <button class="btn btn-primary" onclick="resetGame()">Jugar de nuevo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Redes Sociales -->
+    <section id="social-media">
+        <div class="section-title">
+            <h2>📱 El Buen Uso de las Redes Sociales</h2>
+            <p>Las redes sociales son herramientas poderosas que pueden conectarnos, informarnos y entretenernos, pero también pueden ser peligrosas si no se usan con responsabilidad.</p>
+        </div>
+
+        <div class="container">
+            <div class="social-media-section">
+                <div class="social-media-content">
+                    <h3>¿Por qué es importante usar las redes sociales de forma responsable?</h3>
+                    <p>Las redes sociales han transformado la forma en que nos comunicamos, compartimos y nos relacionamos. Sin embargo, su uso inadecuado puede tener consecuencias graves en nuestra vida personal, académica y profesional.</p>
+                    
+                    <div class="social-icons">
+                        <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon tiktok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    
+                    <div class="social-tips">
+                        <div class="social-tip">
+                            <h4><i class="fas fa-user-lock"></i> Protege tu privacidad</h4>
+                            <p>No compartas información personal como tu dirección, número de teléfono, escuela, rutinas diarias o ubicación en tiempo real. Los delincuentes pueden usar esta información para rastrearte, acosarte o cometer fraude.</p>
+                        </div>
+                        
+                        <div class="social-tip">
+                            <h4><i class="fas fa-comments"></i> Sé respetuoso y empático</h4>
+                            <p>Lo que publicas en línea puede afectar profundamente a otras personas. Evita publicar comentarios hirientes, rumores, fotos comprometedoras o contenido que pueda humillar a alguien. Recuerda: detrás de cada pantalla hay una persona con sentimientos.</p>
+                        </div>
+                        
+                        <div class="social-tip">
+                            <h4><i class="fas fa-check-circle"></i> Verifica la información antes de compartir</h4>
+                            <p>No todos los contenidos que ves en redes sociales son verdaderos. Muchos son falsos, manipulados o creados con intención de generar clics. Antes de compartir, busca la fuente original y verifica con medios confiables.</p>
+                        </div>
+                        
+                        <div class="social-tip">
+                            <h4><i class="fas fa-clock"></i> Controla tu tiempo de uso</h4>
+                            <p>Pasar demasiado tiempo en redes sociales puede afectar tu rendimiento académico, tu salud mental y tus relaciones personales. Establece límites de tiempo diario y toma descansos regulares.</p>
+                        </div>
+                        
+                        <div class="social-tip">
+                            <h4><i class="fas fa-bullhorn"></i> Denuncia contenido inapropiado</h4>
+                            <p>Si ves ciberacoso, amenazas, bullying o contenido dañino, no lo ignores. Usa las herramientas de denuncia de la plataforma y habla con un adulto de confianza. Tu acción puede salvar a alguien.</p>
+                        </div>
+                        
+                        <div class="social-tip">
+                            <h4><i class="fas fa-users"></i> Construye una comunidad positiva</h4>
+                            <p>En lugar de solo consumir contenido, crea contenido que sume: comparte conocimientos, apoya a otros, promueve la inclusión y celebra los logros de tus compañeros. Sé parte de la solución, no del problema.</p>
+                        </div>
+                        
+                        <div class="social-tip">
+                            <h4><i class="fas fa-graduation-cap"></i> Piensa en tu futuro</h4>
+                            <p>Lo que publicas hoy puede ser visto por universidades, empleadores o autoridades en el futuro. Imagina que tu perfil es tu currículum digital. ¿Qué imagen quieres proyectar?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Recursos -->
+    <section id="resources">
+        <div class="section-title">
+            <h2>📚 Recursos para Aprender Más</h2>
+            <p>Explora herramientas, sitios y materiales que te ayudarán a convertirte en un ciudadano digital seguro y responsable</p>
+        </div>
+
+        <div class="container">
+            <div class="resources-section">
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <i class="fas fa-book-open"></i>
+                        <h4>Guía de Seguridad Digital para Estudiantes</h4>
+                        <p>Documento oficial del Ministerio de Educación con recomendaciones prácticas para proteger tu información personal en entornos digitales.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <i class="fas fa-video"></i>
+                        <h4>Videos Educativos Interactivos</h4>
+                        <p>Series cortas y dinámicas que explican de forma entretenida cómo identificar estafas, ciberacoso y otras amenazas digitales.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <i class="fas fa-headphones"></i>
+                        <h4>Podcasts de Seguridad Digital</h4>
+                        <p>Escucha historias reales y consejos de expertos sobre ciberseguridad, privacidad y ética digital en formato de audio.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Aplicaciones de Seguridad</h4>
+                        <p>Apps recomendadas para gestionar contraseñas, detectar malware, bloquear contenido dañino y controlar el tiempo de uso.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h4>Líneas de Ayuda y Soporte</h4>
+                        <p>Números y plataformas donde puedes reportar ciberacoso, recibir apoyo psicológico y obtener asesoría legal gratuita.</p>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h4>Programas Escolares de Seguridad Digital</h4>
+                        <p>Plataformas educativas que ofrecen cursos gratuitos para estudiantes, docentes y familias sobre uso responsable de la tecnología.</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem; text-align: center;">
+                    <h3>¿Qué puedes hacer hoy?</h3>
+                    <p>1. Revisa la configuración de privacidad de tus redes sociales<br>
+                    2. Cambia tu contraseña por una más segura<br>
+                    3. Activa la autenticación de dos factores<br>
+                    4. Habla con un familiar sobre lo que aprendiste<br>
+                    5. Comparte esta información con tus amigos</p>
+                    <p style="margin-top: 1.5rem; font-weight: bold;">¡Cada pequeño paso cuenta para crear una internet más segura!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>ProtegeTuRed</span>
+                    </div>
+                    <p>Educando para una internet más segura</p>
+                </div>
+                
+                <div class="team-info">
+                    <div class="team-title">Integrantes del Proyecto</div>
+                    <div class="team-members">
+                        <div class="team-member">Peter Vinces</div>
+                        <div class="team-member">Luis Salazar</div>
+                        <div class="team-member">Paul Chavez</div>
+                        <div class="team-member">Jair Gutierrez</div>
+                        <div class="team-member">Valentin Alvarado</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 ProtegeTuRed - Todos los derechos reservados | Este proyecto fue creado con el propósito educativo para concientizar sobre la seguridad digital</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preguntas del juego con opciones múltiples
+        const questions = [
+            {
+                id: 1,
+                question: "Recibes un mensaje de WhatsApp de alguien que dice ser tu amigo: 'Hola, me robaron el celular y necesito $100 para comprar uno nuevo. Por favor, envíame dinero por transferencia.' ¿Qué deberías hacer?",
+                options: [
+                    "Enviarle el dinero inmediatamente porque es tu amigo",
+                    "Preguntarle por detalles específicos que solo tu amigo conocería antes de enviar dinero",
+                    "Enviarle el dinero y pedirle que te devuelva cuando pueda",
+                    "Ignorar el mensaje porque probablemente es un error"
+                ],
+                correct: 1,
+                explanation: "Los estafadores a menudo se hacen pasar por amigos. Lo mejor es verificar la identidad de la persona preguntando por detalles que solo tu amigo conocería, como el nombre de tu mascota, un recuerdo compartido, etc. Nunca envíes dinero sin verificar primero."
+            },
+            {
+                id: 2,
+                question: "Te llega un correo electrónico que dice: '¡Urgente! Tu cuenta de Netflix ha sido comprometida. Haz clic aquí para verificar tu información antes de que se cierre tu cuenta.' ¿Cuál es la mejor acción?",
+                options: [
+                    "Hacer clic en el enlace para verificar tu cuenta",
+                    "Iniciar sesión directamente en Netflix.com y verificar tu cuenta desde allí",
+                    "Responder al correo preguntando qué información necesitan",
+                    "Borrar el correo sin hacer nada"
+                ],
+                correct: 1,
+                explanation: "Nunca hagas clic en enlaces de correos sospechosos. En su lugar, inicia sesión directamente en el sitio web oficial (Netflix.com) y revisa tu cuenta allí. Si hay un problema real, te lo notificarán en tu cuenta."
+            },
+            {
+                id: 3,
+                question: "Recibes un mensaje de Instagram que dice: '¡GANASTE $5000 EN EFECTIVO! Solo debes pagar $50 en tarifas de procesamiento para reclamar tu premio. ¡Clic aquí ahora!' ¿Qué debes hacer?",
+                options: [
+                    "Pagar las tarifas para reclamar tu premio",
+                    "Compartir el mensaje con tus amigos para que también puedan ganar",
+                    "Ignorar el mensaje y reportarlo como estafa",
+                    "Responder preguntando cómo ganaste el premio"
+                ],
+                correct: 2,
+                explanation: "Las ofertas que piden dinero para recibir premios son estafas. Nunca pagues para recibir dinero. Lo mejor es ignorar el mensaje y reportarlo como estafa para proteger a otros usuarios."
+            },
+            {
+                id: 4,
+                question: "Tu amigo te envía un mensaje diciendo: 'Hola, soy tu amigo Pedro. Me robaron el celular y necesito dinero urgente para comprar uno nuevo. Por favor, envíame $100 por transferencia.' ¿Qué deberías hacer?",
+                options: [
+                    "Enviarle el dinero inmediatamente porque es tu amigo",
+                    "Llamar a tu amigo por teléfono para confirmar si realmente es él",
+                    "Enviarle el dinero por otra plataforma como PayPal",
+                    "Preguntarle por qué no puede usar su tarjeta de débito"
+                ],
+                correct: 1,
+                explanation: "Siempre verifica la identidad de alguien que te pide dinero por mensaje. Llama por teléfono o usa otro medio de comunicación para confirmar que es realmente tu amigo. Los estafadores pueden acceder a las cuentas de redes sociales y enviar mensajes falsos."
+            },
+            {
+                id: 5,
+                question: "Te llega un mensaje de soporte técnico de Google que dice: 'Hola, soy soporte técnico de Google. Tu cuenta tiene un problema de seguridad. Por favor, ingresa tu contraseña aquí para solucionarlo.' ¿Qué deberías hacer?",
+                options: [
+                    "Ingresar tu contraseña para solucionar el problema",
+                    "Preguntarle al soporte técnico qué problema específico tiene tu cuenta",
+                    "Ignorar el mensaje y reportarlo como phishing",
+                    "Cambiar tu contraseña y luego enviarla por mensaje"
+                ],
+                correct: 2,
+                explanation: "Las empresas legítimas como Google nunca solicitan contraseñas por mensaje. Esto es una estafa clara de phishing. Ignora el mensaje y reporta como phishing. Si tienes dudas, inicia sesión directamente en Google.com."
+            },
+            {
+                id: 6,
+                question: "Recibes un mensaje de tu banco que dice: 'Tu tarjeta ha sido bloqueada por seguridad. Llama al 123456789 para desbloquearla.' ¿Qué deberías hacer?",
+                options: [
+                    "Llamar al número proporcionado inmediatamente",
+                    "Iniciar sesión en tu app bancaria para verificar tu cuenta",
+                    "Responder al mensaje preguntando qué tarjeta fue bloqueada",
+                    "Compartir el mensaje con tus amigos para que estén alertas"
+                ],
+                correct: 1,
+                explanation: "Nunca llames a números proporcionados en mensajes sospechosos. En su lugar, inicia sesión en tu app bancaria oficial o llama al número de atención al cliente que aparece en tu tarjeta o en el sitio web oficial del banco."
+            },
+            {
+                id: 7,
+                question: "Tu cuenta de Instagram te notifica: 'Se ha iniciado sesión desde un nuevo dispositivo. Si no fuiste tú, haz clic en 'No fui yo' para bloquear el acceso.' ¿Qué debes hacer?",
+                options: [
+                    "Hacer clic en 'No fui yo' inmediatamente",
+                    "Cambiar tu contraseña y activar la autenticación de dos factores",
+                    "Ignorar el mensaje porque probablemente es un error",
+                    "Preguntar a tus amigos si han intentado acceder a tu cuenta"
+                ],
+                correct: 1,
+                explanation: "Esta es una notificación legítima de seguridad. Haz clic en 'No fui yo' si no fue tú, cambia tu contraseña inmediatamente y activa la autenticación de dos factores para proteger tu cuenta en el futuro."
+            },
+            {
+                id: 8,
+                question: "Recibes un mensaje de Twitter que dice: '¡Gana seguidores gratis! Solo ingresa tu nombre de usuario y contraseña para comenzar.' ¿Qué deberías hacer?",
+                options: [
+                    "Ingresar tus credenciales para ganar seguidores",
+                    "Compartir el mensaje con tus seguidores para que también lo aprovechen",
+                    "Ignorar el mensaje y reportarlo como estafa",
+                    "Cambiar tu contraseña y luego ingresarla en el sitio"
+                ],
+                correct: 2,
+                explanation: "Nunca compartas tu nombre de usuario y contraseña con nadie. Los servicios que ofrecen seguidores gratis requieren tus credenciales para robar tu cuenta. Ignora y reporta este tipo de mensajes como estafa."
+            },
+            {
+                id: 9,
+                question: "Te llega un correo electrónico de una tienda online que dice: 'Tu paquete está listo para entrega. Haz clic aquí para confirmar tu dirección de entrega y horario.' ¿Qué deberías hacer?",
+                options: [
+                    "Hacer clic en el enlace para confirmar tu dirección",
+                    "Iniciar sesión en la tienda online directamente y verificar tu pedido",
+                    "Responder al correo preguntando qué paquete es",
+                    "Compartir el correo con tus amigos para que también verifiquen sus pedidos"
+                ],
+                correct: 1,
+                explanation: "Nunca hagas clic en enlaces de correos sospechosos. En su lugar, inicia sesión directamente en la tienda online y verifica tus pedidos allí. Si hay un problema real, lo verás en tu cuenta."
+            },
+            {
+                id: 10,
+                question: "Recibes un mensaje de Facebook que dice: '¡Felicidades! Has sido seleccionado para un trabajo remoto. Solo necesitas pagar $200 para completar el proceso.' ¿Qué deberías hacer?",
+                options: [
+                    "Pagar los $200 para obtener el trabajo",
+                    "Aceptar el trabajo y preguntar por qué necesitan pagar",
+                    "Ignorar el mensaje y reportarlo como estafa",
+                    "Preguntar a tus amigos si ellos también recibieron este mensaje"
+                ],
+                correct: 2,
+                explanation: "Los trabajos legítimos nunca piden dinero para contratar. Esta es una estafa clásica. Ignora el mensaje y reporta como estafa. Si buscas trabajo, usa plataformas reconocidas y nunca pagues por oportunidades."
+            },
+            {
+                id: 11,
+                question: "Tu amigo te envía un mensaje de texto: 'Hola, soy tu amigo. Me robaron el celular y necesito $100 para comprar uno nuevo. Por favor, envíame dinero por transferencia.' ¿Qué deberías hacer?",
+                options: [
+                    "Enviarle el dinero inmediatamente porque es tu amigo",
+                    "Llamar a tu amigo por teléfono para confirmar si realmente es él",
+                    "Enviarle el dinero por otra plataforma como PayPal",
+                    "Preguntarle por qué no puede usar su tarjeta de débito"
+                ],
+                correct: 1,
+                explanation: "Siempre verifica la identidad de alguien que te pide dinero por mensaje. Llama por teléfono o usa otro medio de comunicación para confirmar que es realmente tu amigo. Los estafadores pueden acceder a las cuentas de redes sociales y enviar mensajes falsos."
+            },
+            {
+                id: 12,
+                question: "Recibes un mensaje de WhatsApp de un número desconocido que dice: '¡Urgente! Tu cuenta de TikTok ha sido comprometida. Haz clic aquí para verificar tu información antes de que se cierre.' ¿Qué deberías hacer?",
+                options: [
+                    "Hacer clic en el enlace para verificar tu cuenta",
+                    "Iniciar sesión directamente en TikTok.com y verificar tu cuenta desde allí",
+                    "Responder al mensaje preguntando qué información necesitan",
+                    "Borrar el mensaje y bloquear el número"
+                ],
+                correct: 1,
+                explanation: "Nunca hagas clic en enlaces de mensajes sospechosos. En su lugar, inicia sesión directamente en la app o sitio web oficial de TikTok y revisa tu cuenta allí. Si hay un problema real, te lo notificarán en tu cuenta."
+            },
+            {
+                id: 13,
+                question: "Te llega un correo electrónico de un banco que dice: 'Hemos detectado intentos de acceso no autorizados a tu cuenta. Para proteger tu cuenta, te recomendamos cambiar tu contraseña y activar la autenticación de dos factores.' ¿Qué deberías hacer?",
+                options: [
+                    "Cambiar tu contraseña inmediatamente y activar la autenticación de dos factores",
+                    "Responder al correo con tu nueva contraseña",
+                    "Ignorar el mensaje porque probablemente es un error",
+                    "Llamar al número del banco que aparece en el correo"
+                ],
+                correct: 0,
+                explanation: "Esta es una notificación legítima de seguridad. Cambia tu contraseña inmediatamente y activa la autenticación de dos factores para proteger tu cuenta. Nunca respondas con tu contraseña, y verifica siempre que el correo venga de la dirección oficial del banco."
+            },
+            {
+                id: 14,
+                question: "Recibes un mensaje de Instagram que dice: '¡Gana dinero fácil desde casa! Solo invierte $100 y duplicarás tu dinero en 24 horas.' ¿Qué deberías hacer?",
+                options: [
+                    "Invertir los $100 para duplicar tu dinero",
+                    "Compartir el mensaje con tus amigos para que también ganen",
+                    "Ignorar el mensaje y reportarlo como estafa",
+                    "Preguntar cuál es el método para ganar dinero"
+                ],
+                correct: 2,
+                explanation: "Las ofertas que prometen ganar dinero rápido son estafas piramidales. Nunca inviertas dinero en promesas falsas. Ignora el mensaje y reporta como estafa para proteger a otros usuarios."
+            },
+            {
+                id: 15,
+                question: "Tu amigo te envía un mensaje de Facebook que dice: 'Hola, soy tu amigo. Me robaron el celular y necesito $100 para comprar uno nuevo. Por favor, envíame dinero por transferencia.' ¿Qué deberías hacer?",
+                options: [
+                    "Enviarle el dinero inmediatamente porque es tu amigo",
+                    "Llamar a tu amigo por teléfono para confirmar si realmente es él",
+                    "Enviarle el dinero por otra plataforma como PayPal",
+                    "Preguntarle por qué no puede usar su tarjeta de débito"
+                ],
+                correct: 1,
+                explanation: "Siempre verifica la identidad de alguien que te pide dinero por mensaje. Llama por teléfono o usa otro medio de comunicación para confirmar que es realmente tu amigo. Los estafadores pueden acceder a las cuentas de redes sociales y enviar mensajes falsos."
+            },
+            {
+                id: 16,
+                question: "Recibes un mensaje de texto que dice: 'Tu cuenta de Spotify ha sido suspendida. Haz clic aquí para reactivarla antes de que se elimine.' ¿Qué deberías hacer?",
+                options: [
+                    "Hacer clic en el enlace para reactivar tu cuenta",
+                    "Iniciar sesión directamente en Spotify.com y verificar tu cuenta desde allí",
+                    "Responder al mensaje preguntando qué información necesitan",
+                    "Borrar el mensaje y bloquear el número"
+                ],
+                correct: 1,
+                explanation: "Nunca hagas clic en enlaces de mensajes sospechosos. En su lugar, inicia sesión directamente en la app o sitio web oficial de Spotify y revisa tu cuenta allí. Si hay un problema real, te lo notificarán en tu cuenta."
+            },
+            {
+                id: 17,
+                question: "Te llega un correo electrónico de una universidad que dice: '¡Felicidades! Has sido aceptado en nuestra universidad. Solo debes pagar $500 en matrícula para confirmar tu lugar.' ¿Qué deberías hacer?",
+                options: [
+                    "Pagar los $500 para confirmar tu lugar",
+                    "Iniciar sesión en el sitio web oficial de la universidad y verificar tu solicitud",
+                    "Responder al correo preguntando qué programa te aceptaron",
+                    "Compartir el correo con tus amigos para que también apliquen"
+                ],
+                correct: 1,
+                explanation: "Nunca pagues por una aceptación sin verificar primero. Inicia sesión en el sitio web oficial de la universidad y revisa tu solicitud. Si realmente te aceptaron, lo verás en tu cuenta. Las universidades legítimas no piden pagos por correo electrónico."
+            },
+            {
+                id: 18,
+                question: "Recibes un mensaje de Instagram que dice: '¡Gana seguidores gratis! Solo ingresa tu nombre de usuario y contraseña para comenzar.' ¿Qué deberías hacer?",
+                options: [
+                    "Ingresar tus credenciales para ganar seguidores",
+                    "Compartir el mensaje con tus seguidores para que también lo aprovechen",
+                    "Ignorar el mensaje y reportarlo como estafa",
+                    "Cambiar tu contraseña y luego ingresarla en el sitio"
+                ],
+                correct: 2,
+                explanation: "Nunca compartas tu nombre de usuario y contraseña con nadie. Los servicios que ofrecen seguidores gratis requieren tus credenciales para robar tu cuenta. Ignora y reporta este tipo de mensajes como estafa."
+            },
+            {
+                id: 19,
+                question: "Recibes un correo electrónico de tu banco que dice: 'Tu cuenta ha sido bloqueada por seguridad. Llama al 123456789 para desbloquearla.' ¿Qué deberías hacer?",
+                options: [
+                    "Llamar al número proporcionado inmediatamente",
+                    "Iniciar sesión en tu app bancaria para verificar tu cuenta",
+                    "Responder al correo preguntando qué tarjeta fue bloqueada",
+                    "Compartir el correo con tus amigos para que también verifiquen sus cuentas"
+                ],
+                correct: 1,
+                explanation: "Nunca llames a números proporcionados en mensajes sospechosos. En su lugar, inicia sesión en tu app bancaria oficial o llama al número de atención al cliente que aparece en tu tarjeta o en el sitio web oficial del banco."
+            },
+            {
+                id: 20,
+                question: "Te llega un mensaje de WhatsApp de alguien que dice: 'Hola, soy un representante de YouTube. Tu canal ha sido eliminado por violar términos de servicio. Haz clic aquí para apelar.' ¿Qué deberías hacer?",
+                options: [
+                    "Hacer clic en el enlace para apelar",
+                    "Iniciar sesión directamente en YouTube.com y verificar tu canal desde allí",
+                    "Responder al mensaje preguntando qué violación cometiste",
+                    "Ignorar el mensaje y bloquear el número"
+                ],
+                correct: 1,
+                explanation: "YouTube nunca contacta por WhatsApp para notificar problemas con canales. Si tu canal tiene un problema, lo verás en tu cuenta de YouTube. Inicia sesión directamente en YouTube.com y verifica tu canal allí."
+            }
+        ];
+
+        // Variables del juego
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let gameStarted = false;
+
+        // Manejo de navegación
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Actualizar navegación activa
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Mostrar sección correspondiente
+                const sectionId = this.getAttribute('data-section');
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Desplazamiento suave
+                document.getElementById(sectionId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Función para navegar a una sección específica
+        function navigateToSection(sectionId) {
+            // Actualizar navegación activa
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Mostrar sección correspondiente
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Desplazamiento suave
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Si es la sección de juego, iniciar el juego
+            if (sectionId === 'game' && !gameStarted) {
+                setTimeout(startGame, 500);
+            }
+        }
+
+        // Función para iniciar el juego
+        function startGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            gameStarted = true;
+            loadQuestion();
+        }
+
+        // Función para cargar una pregunta
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const question = questions[currentQuestionIndex];
+                
+                // Actualizar progreso
+                document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+                document.getElementById('currentScore').textContent = score;
+                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                
+                // Mostrar pregunta
+                document.getElementById('questionText').textContent = question.question;
+                
+                // Limpiar opciones
+                const optionsContainer = document.getElementById('optionsContainer');
+                optionsContainer.innerHTML = '';
+                
+                // Crear opciones
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.innerHTML = `<i class="fas fa-circle"></i> ${option}`;
+                    optionElement.dataset.index = index;
+                    
+                    optionElement.addEventListener('click', function() {
+                        selectOption(this, index);
+                    });
+                    
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                // Ocultar feedback y botón siguiente
+                document.getElementById('feedbackContainer').style.display = 'none';
+                document.getElementById('nextButton').style.display = 'none';
+            } else {
+                showFinalScore();
+            }
+        }
+
+        // Función para seleccionar una opción
+        function selectOption(optionElement, selectedIndex) {
+            // Deshabilitar otras opciones
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                opt.style.opacity = '0.7';
+            });
+            
+            // Marcar la opción seleccionada
+            optionElement.classList.add('selected');
+            
+            const question = questions[currentQuestionIndex];
+            const feedbackContainer = document.getElementById('feedbackContainer');
+            const feedbackText = document.getElementById('feedbackText');
+            const feedbackDetails = document.getElementById('feedbackDetails');
+            const nextButton = document.getElementById('nextButton');
+            
+            if (selectedIndex === question.correct) {
+                optionElement.classList.add('correct');
+                score++;
+                feedbackText.textContent = '¡Correcto!';
+                feedbackText.style.color = '#27ae60';
+                feedbackContainer.className = 'feedback-container correct';
+            } else {
+                optionElement.classList.add('incorrect');
+                feedbackText.textContent = '¡Incorrecto!';
+                feedbackText.style.color = '#e74c3c';
+                feedbackContainer.className = 'feedback-container incorrect';
+                
+                // Mostrar la opción correcta
+                const correctOption = document.querySelector(`.option[data-index="${question.correct}"]`);
+                correctOption.classList.add('correct');
+            }
+            
+            feedbackDetails.textContent = question.explanation;
+            feedbackContainer.style.display = 'block';
+            nextButton.style.display = 'block';
+        }
+
+        // Función para siguiente pregunta
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        // Función para mostrar puntuación final
+        function showFinalScore() {
+            document.getElementById('gameContainer').style.display = 'none';
+            
+            const finalScoreElement = document.getElementById('finalScore');
+            const finalScoreNumber = document.getElementById('finalScoreNumber');
+            const finalMessage = document.getElementById('finalMessage');
+            const finalIcon = document.getElementById('finalIcon');
+            
+            finalScoreNumber.textContent = score + '/20';
+            
+            if (score >= 0 && score <= 10) {
+                finalMessage.textContent = 'debes ponerte a investigar más';
+                finalMessage.style.background = 'rgba(231, 76, 60, 0.1)';
+                finalMessage.style.borderLeft = '4px solid #e74c3c';
+                finalIcon.className = 'fas fa-exclamation-triangle';
+                finalIcon.style.color = '#e74c3c';
+            } else if (score > 10 && score <= 15) {
+                finalMessage.textContent = 'cuidado te van a hackear';
+                finalMessage.style.background = 'rgba(241, 196, 15, 0.1)';
+                finalMessage.style.borderLeft = '4px solid #f39c12';
+                finalIcon.className = 'fas fa-exclamation-circle';
+                finalIcon.style.color = '#f39c12';
+            } else if (score > 15 && score <= 20) {
+                finalMessage.textContent = 'estas seguro de los hackeos c:';
+                finalMessage.style.background = 'rgba(46, 204, 113, 0.1)';
+                finalMessage.style.borderLeft = '4px solid #2ecc71';
+                finalIcon.className = 'fas fa-check-circle';
+                finalIcon.style.color = '#2ecc71';
+            }
+            
+            finalScoreElement.style.display = 'block';
+        }
+
+        // Función para reiniciar el juego
+        function resetGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('finalScore').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'block';
+            loadQuestion();
+        }
+
+        // Evento para el botón siguiente
+        document.getElementById('nextButton').addEventListener('click', nextQuestion);
+
+        // Iniciar el juego cuando se muestre la sección
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.nav-link') && e.target.closest('.nav-link').getAttribute('data-section') === 'game' && !gameStarted) {
+                setTimeout(startGame, 500);
+            }
+        });
+
+        // Si ya estamos en la sección de juego, iniciar el juego
+        if (document.getElementById('game').classList.contains('active')) {
+            setTimeout(startGame, 500);
+        }
+
+        // Scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animación de entrada para secciones
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+
