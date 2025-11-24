@@ -813,6 +813,7 @@
     </style>
 </head>
 <body>
+<script src="//code.tidio.co/wthoazb3sbfgnwelbu5p3crsn95aanb0.js" async></script>
     <!-- Header y Navegación -->
     <header>
         <div class="container">
@@ -1797,6 +1798,288 @@
             });
         });
     </script>
+<!-- IAN - Asistente de ProtegeTuRed (versión CORREGIDA y EMPÁTICA) -->
+<div id="ian-chat" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 360px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: none;
+  overflow: hidden;
+  max-height: 90vh;
+">
+  <div id="ian-header" style="padding: 14px; color: white; display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
+    <span>IAN 🛡️</span>
+    <button id="ian-close" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">×</button>
+  </div>
+  <div id="ian-messages" style="padding: 12px; height: 260px; overflow-y: auto; line-height: 1.5; font-size: 14px;"></div>
+  <div id="ian-input-area" style="padding: 10px; border-top: 1px solid #eee;">
+    <input type="text" id="ian-input" placeholder="Escribe aquí... (puedes contarme lo que pasó)" 
+           style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 20px; outline: none; font-size: 14px;">
+  </div>
+</div>
+
+<button id="ian-open" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4A6CF7, #2A48D0);
+  color: white;
+  box-shadow: 0 4px 12px rgba(74, 108, 247, 0.6);
+">🤖</button>
+
+<style>
+  @media (prefers-color-scheme: dark) {
+    #ian-chat { background: #1e1e2e; color: #e0e0ff; }
+    #ian-messages { background: #1a1a29; }
+    #ian-input { background: #2d2d44; color: white; border-color: #444; }
+    #ian-input::placeholder { color: #aaa; }
+  }
+  @media (prefers-color-scheme: light) {
+    #ian-chat { background: white; color: #333; }
+    #ian-messages { background: #fbfcff; }
+    #ian-input { background: white; color: black; border-color: #ccc; }
+  }
+  .ian-btn {
+    display: inline-block;
+    margin: 4px 2px;
+    padding: 6px 12px;
+    background: #4A6CF7;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .ian-btn-outline {
+    background: transparent;
+    border: 1px solid #4A6CF7;
+    color: #4A6CF7;
+  }
+</style>
+
+<script>
+  const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.getElementById('ian-header').style.background = isDark 
+    ? 'linear-gradient(135deg, #4A6CF7, #6A5ACD)' 
+    : 'linear-gradient(135deg, #4A6CF7, #2A48D0)';
+
+  const openBtn = document.getElementById('ian-open');
+  const closeBtn = document.getElementById('ian-close');
+  const chat = document.getElementById('ian-chat');
+  const input = document.getElementById('ian-input');
+  const messages = document.getElementById('ian-messages');
+
+  const userBg = isDark ? '#2a2a40' : '#eef5ff';
+  const ianBg = isDark ? '#2d3748' : '#f0f8ff';
+  const ianBorder = isDark ? '#4A6CF7' : '#4A6CF7';
+
+  openBtn.onclick = () => { chat.style.display = 'block'; setTimeout(() => input.focus(), 300); };
+  closeBtn.onclick = () => chat.style.display = 'none';
+
+  // === GUÍAS CORREGIDAS (ahora son funciones directas) ===
+  function mostrarGuiaCiberacoso() {
+    const texto = 
+      '🛡️ <strong>Guía contra el ciberacoso:</strong><br>' +
+      '1. <strong>No respondas</strong> al agresor.<br>' +
+      '2. <strong>Guarda pruebas</strong> (capturas con fecha).<br>' +
+      '3. <strong>Bloquea</strong> en todas las plataformas.<br>' +
+      '4. <strong>Denuncia</strong> usando la opción de la red social.<br>' +
+      '5. <strong>Habla con alguien</strong> de confianza.<br><br>' +
+      '¿Quieres que te muestre cómo denunciar en Instagram o TikTok?';
+    addMessage(texto, 'IAN');
+  }
+
+  function mostrarGuiaGrooming() {
+    const texto = 
+      '⚠️ <strong>Guía si viviste grooming:</strong><br>' +
+      '1. <strong>Deja de contactar</strong> con esa persona.<br>' +
+      '2. <strong>No elimines los mensajes</strong> (son pruebas).<br>' +
+      '3. <strong>Habla YA</strong> con un adulto de confianza.<br>' +
+      '4. <strong>Denuncia</strong> ante la policía cibernética.<br>' +
+      '5. <strong>No te sientas avergonzado/a</strong>: ellos usan manipulación.<br><br>' +
+      'Tu seguridad es lo más importante. ¿Necesitas ayuda para hablar con alguien?';
+    addMessage(texto, 'IAN');
+  }
+
+  function mostrarGuiaEstafa() {
+    const texto = 
+      '🎣 <strong>Guía si caíste en una estafa:</strong><br>' +
+      '1. <strong>Cambia tus contraseñas</strong> inmediatamente.<br>' +
+      '2. Si diste datos bancarios, <strong>llama a tu banco</strong>.<br>' +
+      '3. <strong>Denuncia</strong> en la plataforma y ante la policía cibernética.<br>' +
+      '4. <strong>No pagues rescates</strong>.<br>' +
+      '5. Aprende para protegerte en el futuro — ¡esto te hace más fuerte!';
+    addMessage(texto, 'IAN');
+  }
+
+  // === FUNCIONES PARA BOTONES ===
+  window.ianGuiaCiberacoso = () => mostrarGuiaCiberacoso();
+  window.ianGuiaGrooming = () => mostrarGuiaGrooming();
+  window.ianGuiaEstafa = () => mostrarGuiaEstafa();
+
+  // === RESPUESTAS ===
+  const tips = [
+    "💡 Tu seguridad es lo más importante. No tienes la culpa si alguien abusó de tu confianza.",
+    "💡 Guardar pruebas (capturas) puede ayudarte a denunciar después.",
+    "💡 Hablar con alguien de confianza es el primer paso para sentirte mejor."
+  ];
+
+  function addMessage(text, sender = 'IAN', guardar = true) {
+    const p = document.createElement('p');
+    p.style.margin = '6px 0';
+    p.style.padding = '8px 12px';
+    p.style.borderRadius = '14px';
+    p.style.display = 'inline-block';
+    p.style.maxWidth = '85%';
+    p.style.wordBreak = 'break-word';
+
+    if (sender === 'user') {
+      p.style.backgroundColor = userBg;
+      p.style.color = isDark ? 'white' : 'black';
+      p.style.float = 'right';
+      p.innerHTML = `<strong>Tú:</strong> ${text}`;
+    } else {
+      p.style.backgroundColor = ianBg;
+      p.style.borderLeft = `3px solid ${ianBorder}`;
+      p.style.color = isDark ? '#e0e0ff' : '#333';
+      p.innerHTML = `<strong>IAN:</strong> ${text.replace(/\n/g, '<br>')}`;
+    }
+    messages.appendChild(p);
+    messages.scrollTop = messages.scrollHeight;
+    if (guardar) {
+      const historial = JSON.parse(localStorage.getItem('ian-historial') || '[]');
+      historial.push({ text, sender });
+      if (historial.length > 25) historial.shift();
+      localStorage.setItem('ian-historial', JSON.stringify(historial));
+    }
+  }
+
+  function cargarHistorial() {
+    const historial = JSON.parse(localStorage.getItem('ian-historial') || '[]');
+    messages.innerHTML = '';
+    if (historial.length === 0) {
+      addMessage('👋 ¡Hola! Soy <strong>IAN</strong>, tu asistente de <em>ProtegeTuRed</em>.<br>¿En qué puedo ayudarte hoy?', 'IAN');
+      mostrarMenuInicio();
+    } else {
+      historial.forEach(item => addMessage(item.text, item.sender, false));
+    }
+  }
+
+  function mostrarMenuInicio() {
+    const html = `
+      <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; justify-content:center;">
+        <button class="ian-btn" onclick="ianGuiaCiberacoso()">Ciberacoso</button>
+        <button class="ian-btn" onclick="ianGuiaGrooming()">Grooming</button>
+        <button class="ian-btn" onclick="ianGuiaEstafa()">Estafa</button>
+      </div>
+      <div style="margin-top:8px; font-size:12px; color:#666; text-align:center;">
+        También puedes contarme si pasó algo. Estoy aquí para ayudarte.
+      </div>
+    `;
+    messages.innerHTML += html;
+  }
+
+  function esCalculo(texto) {
+    const limpio = texto.replace(/[^0-9+\-*/().\s]/g, '').trim();
+    if (limpio === '') return null;
+    try {
+      const resultado = Function('"use strict"; return (' + limpio + ')')();
+      if (typeof resultado === 'number' && isFinite(resultado)) {
+        return resultado;
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
+  }
+
+  // === DETECCIÓN INTELIGENTE DE NECESIDADES ===
+  function procesarEntrada(userText) {
+    const lower = userText.toLowerCase();
+
+    // Apoyo emocional
+    if (/(acos|bully|odio|burl|humill)/.test(lower)) {
+      addMessage('🫂 Lamento que hayas vivido ciberacoso. No es tu culpa. Aquí tienes una guía para actuar:', 'IAN');
+      setTimeout(mostrarGuiaCiberacoso, 600);
+      return;
+    }
+    if (/(groom|adulto|foto.*íntima|secreto|desnud|vínculo)/.test(lower)) {
+      addMessage('⚠️ Lo que viviste es grooming. Es grave, pero puedes salir de esto. Aquí está tu guía:', 'IAN');
+      setTimeout(mostrarGuiaGrooming, 600);
+      return;
+    }
+    if (/(estafa|dinero|link.*raro|ganaste|premio|contraseñ|cuenta.*hack)/.test(lower)) {
+      addMessage('🎣 Parece que fuiste víctima de una estafa. No te preocupes: aquí está cómo recuperarte:', 'IAN');
+      setTimeout(mostrarGuiaEstafa, 600);
+      return;
+    }
+
+    // Comandos simples
+    if (lower.includes('hola') || lower === 'hi') {
+      addMessage('👋 ¡Hola! Soy IAN, tu asistente de <em>ProtegeTuRed</em>. ¿Necesitas ayuda con ciberacoso, grooming, estafas... o algo más?', 'IAN');
+      mostrarMenuInicio();
+      return;
+    }
+
+    if (lower.includes('tip') || lower.includes('consejo')) {
+      addMessage(tips[Math.floor(Math.random() * tips.length)], 'IAN');
+      return;
+    }
+
+    const calc = esCalculo(userText);
+    if (calc !== null) {
+      addMessage(`🧮 El resultado de **${userText}** es: **${calc}**`, 'IAN');
+      return;
+    }
+
+    // Respuesta amable si no entiende
+    addMessage('🫶 Gracias por confiar en mí. ¿Podrías decirme si necesitas ayuda con <strong>ciberacoso, grooming o una estafa</strong>? También puedes usar los botones de arriba.', 'IAN');
+  }
+
+  // === EVENTO DE ENTRADA ===
+  input.onkeypress = (e) => {
+    if (e.key === 'Enter') {
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      addMessage(userText, 'user');
+      input.value = '';
+
+      // Mostrar "escribiendo..."
+      const p = document.createElement('p');
+      p.id = 'ian-escribiendo';
+      p.style.color = isDark ? '#aaa' : '#777';
+      p.style.fontSize = '13px';
+      p.textContent = 'IAN está escribiendo...';
+      messages.appendChild(p);
+      messages.scrollTop = messages.scrollHeight;
+
+      setTimeout(() => {
+        document.getElementById('ian-escribiendo')?.remove();
+        procesarEntrada(userText);
+      }, 800);
+    }
+  };
+
+  // === INICIAR ===
+  cargarHistorial();
+</script>
 </body>
 </html>
 
